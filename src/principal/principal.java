@@ -1,26 +1,28 @@
 package principal;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.File;
+import java.util.Scanner;
 
 public class principal {
-
+//String path = "D:\\usuario\\rodolfo\\Desktop\\eclipse\\workspace\\manipulacaoArquivos\\out.txt";
 	public static void main(String[] args) {
-		String[] lines = new String[] { "Good morning", "Good afternoon", "Good night" };
-		String path = "D:\\usuario\\rodolfo\\Desktop\\eclipse\\workspace\\manipulacaoArquivos\\out.txt";
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
-			
-			bw.write("----------------------------------");
-			bw.newLine();
-			
-			for (String line : lines) {
-				bw.write(line);
-				bw.newLine();
-			}
-		} catch (IOException e) {
-			System.out.println("Error: " + e.getMessage());
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter a folder path: ");
+		String strPath = sc.nextLine();
+		File path = new File(strPath);
+		File[] folders = path.listFiles(File::isDirectory);
+		System.out.println("FOLDERS:");
+		for (File folder : folders) {
+			System.out.println(folder);
 		}
+		File[] files = path.listFiles(File::isFile);
+		System.out.println("FILES:");
+		for (File file : files) {
+			System.out.println(file);
+		}
+		boolean success = new File(strPath + "\\subdir").mkdir();
+		System.out.println("Directory created successfully: " + success);
+		sc.close();
 
 	}
 }
